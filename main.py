@@ -1,32 +1,30 @@
-from math import pi
+import sys
+from PySide6.QtWidgets import QApplication, QTextEdit, QVBoxLayout, QWidget
+from PySide6.QtGui import QPalette, QColor
+
+class StickyNotes(QWidget):
+    def __init__(self):
+        super().__init__()
+
+        self.setWindowTitle("Sticky Notes")
+         
+     
+        palette = self.palette()
+        palette.setColor(QPalette.Window, QColor("blue"))  
+        self.setAutoFillBackground(True)
+        self.setPalette(palette)
+
+        
+        self.text_edit = QTextEdit()
+        self.text_edit.setPlaceholderText("Write your notes here...")
+
+     
+        layout = QVBoxLayout()
+        layout.addWidget(self.text_edit)
+        self.setLayout(layout)
 
 
-class AbstractShape:
-
-    def area(self):
-        pass
-
-    def perimetr(self):
-        pass
-
-
-class Circle(AbstractShape):
-    def __init__(self, radius):
-        self.radius = radius
-
-    def area(self):
-        return pi * self.radius ** 2
-
-    def perimeter(self):
-        return 2 * pi * self.radius
-
-class Rectangle(AbstractShape):
-    def __init__(self, width, height):
-        self.width = width
-        self.height = height
-
-    def area(self):
-        return self.width * self.height
-
-    def perimeter(self):
-        return 2 * (self.width + self.height)
+app = QApplication(sys.argv)
+window = StickyNotes()
+window.show()
+sys.exit(app.exec())
