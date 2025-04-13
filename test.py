@@ -1,12 +1,10 @@
 import sys
 
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import (
     QApplication,
     QHBoxLayout,
     QPushButton,
-    QSystemTrayIcon,
     QTextEdit,
     QVBoxLayout,
     QWidget,
@@ -21,7 +19,7 @@ active_notewindows = {}
 class NoteWindow(QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Notes")
+        self.setWindowTitle("My App")
         self.setWindowFlags(
             self.windowFlags()
             | Qt.WindowType.FramelessWindowHint
@@ -47,7 +45,7 @@ class NoteWindow(QWidget):
         layout.addWidget(self.text)
         self.setLayout(layout)
 
-        # Store a reference to this note in the active_notewindows
+        # Store a reference to this note in the
         active_notewindows[id(self)] = self
 
     def mousePressEvent(self, e):
@@ -65,25 +63,7 @@ def create_notewindow():
 
 
 create_notewindow()
-
-# Create the icon
-icon = QIcon("sticky-note.png")
-
-# Create the tray
-tray = QSystemTrayIcon()
-tray.setIcon(icon)
-tray.setVisible(True)
-
-
-def handle_tray_click(reason):
-    # If the tray is left-clicked, create a new note.
-    if (
-        QSystemTrayIcon.ActivationReason(reason)
-        == QSystemTrayIcon.ActivationReason.Trigger
-    ):
-        create_notewindow()
-
-
-tray.activated.connect(handle_tray_click)
-
+create_notewindow()
+create_notewindow()
+create_notewindow()
 app.exec()
